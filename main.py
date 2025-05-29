@@ -39,10 +39,10 @@ async def on_message(message):
 
 
     if message.content == "!pdf":
-        #ar = arvestapi.Arvest(mail, password)
-        #fichier = message.attachment
+        ar = arvestapi.Arvest(mail, password)
         #upload_pdf(fichier, xxxxx, mail, password)
         #await message.channel.send("le pdf est devenu un manifest !")
+
 
         file = str(message.attachments)
         fichier = message.attachments
@@ -59,7 +59,21 @@ async def on_message(message):
         # Conversion en JPEG
         image = convert_from_path(chemin, 72)
         os.remove(chemin)
-        await message.channel.send(file_name)
+
+        num_page = 0
+
+        for i, page in enumerate(image):
+            img_name = f"{file_name}_page_{i + 1}.jpeg"
+            output_path = os.path.join("img", img_name)
+            page.save(output_path, 'JPEG')
+            added_media = ar.add_media(path = output_path)
+            os.remove(output_path)
+            num_page += 1
+
+        await message.channel.send(f"upload the pdf as {num_page} medias")
+        
+#keep_alive()
+bot.run(key_bot)
         
 keep_alive()
 bot.run(key_bot)
