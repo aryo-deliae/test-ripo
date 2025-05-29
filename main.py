@@ -45,7 +45,20 @@ async def on_message(message):
         #await message.channel.send("le pdf est devenu un manifest !")
 
         file = str(message.attachments)
-        await message.channel.send(file)
+
+                if file.find("url='") > 0:
+                  cible = file.find("url='")
+                  cible2 = file.find("'>]")
+                  link = file[cible+5:cible2]
+
+        if file.find("filename='") > 0:
+                  cible = file.find("' url")
+                  cible2 = file.find("filename='")
+                  name = file[cible2+10:cible]
+
+        file_name = name.replace('.pdf', '')
+
+        await message.channel.send(link)
         
 keep_alive()
 bot.run(key_bot)
