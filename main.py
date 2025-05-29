@@ -4,11 +4,12 @@ from dotenv import load_dotenv
 from discord.ext import commands
 from discord import Intents, app_commands
 import arvestapi
-from commandes import upload_image
+from commandes import upload_image, medias_pdf_to_manifest
 from pdf2image import convert_from_path
 from PIL import Image
 from urllib.request import urlopen
 from keep_alive import keep_alive
+
 
 load_dotenv()
 
