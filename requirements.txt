@@ -5,7 +5,7 @@ altair==5.5.0
 annotated-types==0.7.0
 anyio==4.8.0
 appdirs==1.4.4
-arvestapi @ git+https://github.com/arvest-data-in-context/arvest-api.git@0570921b6d0e072577ccb879ba4eebf2829aa564
+arvestapi @ git+https://github.com/ARVEST-APP/arvest-api.git@681e82e96b65bd7e16a8d3c00dbec9a244adaae6
 asttokens==3.0.0
 attrs==25.1.0
 blinker==1.9.0
