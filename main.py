@@ -46,8 +46,6 @@ async def on_message(message):
         #Recuperation de la piece jointe 
 
         fichier = message.attachments
-        
-        chemin = os.path.join(racine,"img")
 
         for attachment in fichier :
             await attachment.save(attachment.filename)
