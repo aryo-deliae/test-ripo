@@ -39,27 +39,27 @@ async def on_message(message):
 
 
     if message.content == "!pdf":
-        ar = arvestapi.Arvest(mail, password)
+        #ar = arvestapi.Arvest(mail, password)
         #fichier = message.attachment
         #upload_pdf(fichier, xxxxx, mail, password)
         #await message.channel.send("le pdf est devenu un manifest !")
 
         file = str(message.attachments)
+        fichier = message.attachments
+        
+        chemin = os.path.join(racine,"img")
 
-        if file.find("url='") > 0:
-                  cible = file.find("url='")
-                  cible2 = file.find("'>]")
-                  link = file[cible+5:cible2]
-
-        if file.find("filename='") > 0:
-                  cible = file.find("' url")
-                  cible2 = file.find("filename='")
-                  name = file[cible2+10:cible]
+        for attachment in fichier :
+            await attachment.save(attachment.filename)
+            name = attachment.filename
 
         file_name = name.replace('.pdf', '')
+        chemin = os.path.join(racine,name)
+
         # Conversion en JPEG
-        image = convert_from_path(link, 72)
-        await message.channel.send("good")
+        image = convert_from_path(chemin, 72)
+        os.remove(chemin)
+        await message.channel.send(file_name)
         
 keep_alive()
 bot.run(key_bot)
