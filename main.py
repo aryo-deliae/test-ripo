@@ -45,30 +45,7 @@ async def on_message(message):
         #await message.channel.send("le pdf est devenu un manifest !")
 
         file = str(message.attachments)
-
-        if file.find("url='") > 0:
-                  cible = file.find("url='")
-                  cible2 = file.find("'>]")
-                  link = file[cible+5:cible2]
-
-        if file.find("filename='") > 0:
-                  cible = file.find("' url")
-                  cible2 = file.find("filename='")
-                  name = file[cible2+10:cible]
-
-        file_name = name.replace('.pdf', '')
-
-        # Conversion en JPEG
-        image = convert_from_path(link, 72)
-
-        for i, page in enumerate(image):
-            img_name = f"{file_name}_page_{i + 1}.jpeg"
-            output_path = os.path.join("img", img_name)
-            page.save(output_path, 'JPEG')
-            added_media = ar.add_media(path = output_path)
-            os.remove(output_path)
-
-        await message.channel.send("pdf uploadé !")
+        await message.channel.send(file)
         
 keep_alive()
 bot.run(key_bot)
