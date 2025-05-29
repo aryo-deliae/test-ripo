@@ -46,7 +46,7 @@ async def on_message(message):
 
         file = str(message.attachments)
 
-                if file.find("url='") > 0:
+        if file.find("url='") > 0:
                   cible = file.find("url='")
                   cible2 = file.find("'>]")
                   link = file[cible+5:cible2]
