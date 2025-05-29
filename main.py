@@ -39,12 +39,11 @@ async def on_message(message):
 
 
     if message.content == "!pdf":
+        
         ar = arvestapi.Arvest(mail, password)
-        #upload_pdf(fichier, xxxxx, mail, password)
-        #await message.channel.send("le pdf est devenu un manifest !")
 
+        #Recuperation de la piece jointe 
 
-        file = str(message.attachments)
         fichier = message.attachments
         
         chemin = os.path.join(racine,"img")
@@ -62,15 +61,24 @@ async def on_message(message):
 
         num_page = 0
 
+        #Upload des medias sur Arvest
         for i, page in enumerate(image):
             img_name = f"{file_name}_page_{i + 1}.jpeg"
-            output_path = os.path.join("img", img_name)
+            output_path = os.path.join("file", img_name)
             page.save(output_path, 'JPEG')
             added_media = ar.add_media(path = output_path)
             os.remove(output_path)
             num_page += 1
 
         await message.channel.send(f"upload the pdf as {num_page} medias")
+        
+        medias = ar.get_medias()
+        nom_manifest = file_name
+
+        #Creation et upload du manifest
+        medias_pdf_to_manifest(medias, nom_manifest, racine, ar)
+
+        await message.channel.send("le pdf est devenu un manifest !")
         
 #keep_alive()
 bot.run(key_bot)
