@@ -57,8 +57,9 @@ async def on_message(message):
                   name = file[cible2+10:cible]
 
         file_name = name.replace('.pdf', '')
-
-        await message.channel.send(link)
+        # Conversion en JPEG
+        image = convert_from_path(link, 72)
+        await message.channel.send("good")
         
 keep_alive()
 bot.run(key_bot)
